@@ -13,5 +13,16 @@
 	"eslint.nodePath": "./node_modules/eslint",
 	"tailwindCSS.experimental.classRegex": [
 		"class:\\s*?[\"'`]([^\"'`]*).*?,"
+	],
+	"sqltools.connections": [
+		{
+			"previewLimit": 50,
+			"server": "127.0.0.1",
+			"port": 5432,
+			"driver": "PostgreSQL",
+			"name": "127.0.0.1",
+			"database": "nio-notes",
+			"username": "nishat"
+		}
 	]
 }
