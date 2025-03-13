@@ -1,10 +1,12 @@
-'use client';
+"use client";
 
-import NotePreview from '@/components/notes/NotePreview';
-import RichNoteEditor from '@/components/notes/RichNoteEditor';
-import { NoteProvider } from '@/context/NoteContext';
-import { Tabs } from '@mantine/core';
-import { IconEyeCheck, IconPencilBolt } from '@tabler/icons-react';
+import { NoteProvider } from "@/context/NoteContext";
+import { Tabs } from "@mantine/core";
+import { IconEyeCheck, IconPencilBolt } from "@tabler/icons-react";
+import { lazy, Suspense } from "react";
+
+const RichNoteEditor = lazy(() => import("@/components/notes/RichNoteEditor"));
+const NotePreview = lazy(() => import("@/components/notes/NotePreview"));
 
 export default function GuestHomePage() {
 	const EditIcon = <IconPencilBolt size={16} />;
@@ -25,14 +27,18 @@ export default function GuestHomePage() {
 					{/* Note Editing */}
 					<Tabs.Panel value="editor">
 						<section className="min-h-[calc(100dvh-180px)] mt-1 w-full h-full">
-							<RichNoteEditor />
+							<Suspense fallback={<div>Loading Editor...</div>}>
+								<RichNoteEditor />
+							</Suspense>
 						</section>
 					</Tabs.Panel>
 
 					{/* Note Preview */}
 					<Tabs.Panel value="preview">
 						<section className="min-h-[calc(100dvh-180px)] mt-1 w-full h-full">
-							<NotePreview />
+							<Suspense fallback={<div>Loading Preview...</div>}>
+								<NotePreview />
+							</Suspense>
 						</section>
 					</Tabs.Panel>
 				</NoteProvider>

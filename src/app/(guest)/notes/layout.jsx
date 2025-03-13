@@ -1,9 +1,9 @@
-import GuestLayout from '@/components/layouts/GuestLayout';
-import { MantineProvider, mantineHtmlProps } from '@mantine/core';
+import GuestLayout from "@/components/layouts/GuestLayout";
+import { MantineProvider, mantineHtmlProps } from "@mantine/core";
 
 export const metadata = {
-	title: 'Guest layout',
-	description: 'Guest layout',
+	title: "Guest layout",
+	description: "Guest layout",
 };
 
 export default function GuestRootLayout({ children }) {

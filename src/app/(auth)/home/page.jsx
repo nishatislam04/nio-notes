@@ -1,9 +1,9 @@
-import { Button } from '@mantine/core';
+import { Button } from "@mantine/core";
 
 export default function AuthHomePage() {
 	return (
 		<div className="">
-			<Button fullWidth>AuthHomePage</Button>
+			<Button fullWidth>test</Button>
 		</div>
 	);
 }

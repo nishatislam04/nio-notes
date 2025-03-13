@@ -4,7 +4,7 @@ import { useDisclosure } from '@mantine/hooks';
 import Link from 'next/link';
 import Logo from '../miscs/Logo';
 
-const navItems = [{ label: 'Home', value: '/notes' }];
+const navItems = [];
 
 export default function GuestLayout({ children }) {
 	const [opened, { toggle }] = useDisclosure();
