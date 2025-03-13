@@ -1,5 +1,6 @@
 import '@mantine/core/styles.css';
 import './globals.css';
+import '@mantine/tiptap/styles.css';
 
 export const metadata = {
 	title: 'root layout',

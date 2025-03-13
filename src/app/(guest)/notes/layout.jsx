@@ -1,3 +1,4 @@
+import GuestLayout from '@/components/layouts/GuestLayout';
 import { MantineProvider, mantineHtmlProps } from '@mantine/core';
 
 export const metadata = {
@@ -5,11 +6,13 @@ export const metadata = {
 	description: 'Guest layout',
 };
 
-export default function GuestLayout({ children }) {
+export default function GuestRootLayout({ children }) {
 	return (
 		<html lang="en" {...mantineHtmlProps}>
 			<body className="guest-body">
-				<MantineProvider>{children}</MantineProvider>
+				<MantineProvider>
+					<GuestLayout>{children}</GuestLayout>
+				</MantineProvider>
 			</body>
 		</html>
 	);

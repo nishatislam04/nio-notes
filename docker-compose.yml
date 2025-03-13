@@ -1,7 +1,6 @@
 services:
-  mysql:
+  mysql-nio-notes:
     image: mysql:8.0
-    container_name: mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -17,9 +16,8 @@ services:
       interval: 10s
       retries: 3
 
-  phpmyadmin:
+  phpmyadmin-nio-notes:
     image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
     restart: always
     ports:
       - "8080:80"
@@ -28,7 +26,7 @@ services:
       PMA_USER: ${MYSQL_USER}
       PMA_PASSWORD: ${MYSQL_PASSWORD}
     depends_on:
-      mysql:
+      mysql-nio-notes:
         condition: service_healthy
         
 volumes:
