@@ -1,4 +1,5 @@
-import { Code } from '@mantine/core';
+import { useNote } from '@/context/NoteContext';
+import { Code, ScrollArea } from '@mantine/core';
 import { Link, RichTextEditor } from '@mantine/tiptap';
 import { IconBracketsAngle } from '@tabler/icons-react';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
@@ -11,6 +12,7 @@ import Underline from '@tiptap/extension-underline';
 import { BubbleMenu, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { all, createLowlight } from 'lowlight';
+import { useEffect } from 'react';
 
 const colors = [
 	'#25262b',
@@ -31,7 +33,8 @@ const colors = [
 
 const lowlight = createLowlight(all);
 
-export default function RichNoteEditor({ value, onChange }) {
+export default function RichNoteEditor() {
+	const { note, updateNote } = useNote();
 	const inlineCodeIcon = () => <IconBracketsAngle size={16} />;
 
 	const editor = useEditor({
@@ -47,11 +50,18 @@ export default function RichNoteEditor({ value, onChange }) {
 			Placeholder.configure({ placeholder: 'Keep Your Note Close to You' }),
 			CodeBlockLowlight.configure({ lowlight }),
 		],
-		content: value,
+		content: note,
 		onUpdate: ({ editor }) => {
-			onChange(editor.getHTML());
+			updateNote(editor.getHTML());
 		},
+		immediatelyRender: false,
 	});
+
+	useEffect(() => {
+		if (editor && note) {
+			editor.commands.setContent(note, false);
+		}
+	}, [note, editor]);
 
 	if (!editor) return <p>Loading editor...</p>;
 	return (
@@ -118,7 +128,9 @@ export default function RichNoteEditor({ value, onChange }) {
 				</RichTextEditor.ControlsGroup>
 			</RichTextEditor.Toolbar>
 
-			<RichTextEditor.Content className="min-h-[450px]" />
+			<ScrollArea h={350} offsetScrollbars scrollbarSize={14}>
+				<RichTextEditor.Content />
+			</ScrollArea>
 		</RichTextEditor>
 	);
 }
