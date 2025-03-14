@@ -1,5 +1,6 @@
 import GuestLayout from "@/components/layouts/GuestLayout";
 import { MantineProvider, mantineHtmlProps } from "@mantine/core";
+import { ModalsProvider } from "@mantine/modals";
 
 export const metadata = {
 	title: "Guest layout",
@@ -11,7 +12,9 @@ export default function GuestRootLayout({ children }) {
 		<html lang="en" {...mantineHtmlProps}>
 			<body className="guest-body">
 				<MantineProvider>
-					<GuestLayout>{children}</GuestLayout>
+					<GuestLayout>
+						<ModalsProvider>{children}</ModalsProvider>
+					</GuestLayout>
 				</MantineProvider>
 			</body>
 		</html>

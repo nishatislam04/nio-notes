@@ -1,8 +1,8 @@
-'use client';
-import { Anchor, AppShell, Burger, Group } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import Link from 'next/link';
-import Logo from '../miscs/Logo';
+"use client";
+import { Anchor, AppShell, Burger, Group } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import Link from "next/link";
+import Logo from "../miscs/Logo";
 
 const navItems = [];
 
@@ -13,7 +13,7 @@ export default function GuestLayout({ children }) {
 			header={{ height: 60 }}
 			navbar={{
 				width: 300,
-				breakpoint: 'sm',
+				breakpoint: "sm",
 				collapsed: { desktop: true, mobile: !opened },
 			}}
 			padding="md"
