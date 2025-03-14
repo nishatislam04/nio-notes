@@ -1,10 +1,10 @@
-import '@mantine/core/styles.css';
-import './globals.css';
-import '@mantine/tiptap/styles.css';
+import "@mantine/core/styles.css";
+import "@mantine/tiptap/styles.css";
+import "./globals.css";
 
 export const metadata = {
-	title: 'root layout',
-	description: 'root layout',
+	title: "root layout",
+	description: "root layout",
 };
 
 export default async function RootLayout({ children }) {
