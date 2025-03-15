@@ -19,7 +19,7 @@ export default function GuestHomePage() {
 				<Modal
 					body="If you want to save the note, you have to signin first"
 					labelConfirm="Ok, I want to signin"
-					onConfirm={() => router.push("/signin")}
+					toConfirm={() => router.push("/signin")}
 				>
 					Save
 				</Modal>

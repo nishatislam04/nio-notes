@@ -7,5 +7,9 @@ export async function signInGithubAction() {
 }
 
 export async function signInGoogleAction() {
-	await signIn("github", { redirectTo: "/" });
+	await signIn("google", { redirectTo: "/" });
+}
+
+export async function signInLinkedInleAction() {
+	await signIn("linkedin", { redirectTo: "/" });
 }

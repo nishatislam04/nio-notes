@@ -1,6 +1,7 @@
 import {
 	signInGithubAction,
 	signInGoogleAction,
+	signInLinkedInleAction,
 } from "@/system/action/auth/signin";
 import { Button, Group } from "@mantine/core";
 
@@ -15,6 +16,11 @@ export default function SigninPage() {
 			<form action={signInGoogleAction}>
 				<Button type="submit" size="xl">
 					Signin with Google
+				</Button>
+			</form>
+			<form action={signInLinkedInleAction}>
+				<Button type="submit" size="xl">
+					Signin with Linkedin
 				</Button>
 			</form>
 		</Group>
