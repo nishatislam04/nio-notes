@@ -1,22 +1,28 @@
+import AuthLayout from "@/components/layouts/AuthLayout";
 import {
 	ColorSchemeScript,
 	MantineProvider,
 	mantineHtmlProps,
-} from '@mantine/core';
+} from "@mantine/core";
+import { ModalsProvider } from "@mantine/modals";
 
 export const metadata = {
-	title: 'Auth layout',
-	description: 'Auth layout',
+	title: "Auth layout",
+	description: "Auth layout",
 };
 
-export default function AuthLayout({ children }) {
+export default function AuthRootLayout({ children }) {
 	return (
 		<html lang="en" {...mantineHtmlProps}>
 			<head>
 				<ColorSchemeScript />
 			</head>
 			<body className="auth-body">
-				<MantineProvider>{children}</MantineProvider>
+				<MantineProvider>
+					<AuthLayout>
+						<ModalsProvider>{children}</ModalsProvider>
+					</AuthLayout>
+				</MantineProvider>
 			</body>
 		</html>
 	);
