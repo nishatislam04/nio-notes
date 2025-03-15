@@ -4,7 +4,7 @@ import {
 } from "@/system/action/auth/signin";
 import { Button, Group } from "@mantine/core";
 
-export default function SigninPage() {
+export function SigninUI() {
 	return (
 		<Group justify="flex-end" gap="xl">
 			<form action={signInGithubAction}>

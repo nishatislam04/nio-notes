@@ -5,6 +5,7 @@ import {
 	mantineHtmlProps,
 } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
+import { SessionProvider } from "next-auth/react";
 
 export const metadata = {
 	title: "Auth layout",
@@ -19,9 +20,11 @@ export default function AuthRootLayout({ children }) {
 			</head>
 			<body className="auth-body">
 				<MantineProvider>
-					<AuthLayout>
-						<ModalsProvider>{children}</ModalsProvider>
-					</AuthLayout>
+					<SessionProvider>
+						<AuthLayout>
+							<ModalsProvider>{children}</ModalsProvider>
+						</AuthLayout>
+					</SessionProvider>
 				</MantineProvider>
 			</body>
 		</html>

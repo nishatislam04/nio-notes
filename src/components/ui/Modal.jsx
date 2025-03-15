@@ -6,11 +6,12 @@ export default function Modal({
 	body = "Are you sure that you are aware of your action?",
 	labelConfirm = "Confirm",
 	labelCancel = "Cancel",
-	onConfirm = () => console.log("Modal Action Confirmed"),
-	onCancel = () => console.log("Modal Action Cancel"),
+	toConfirm = () => console.log("Modal Action Confirmed"),
+	toCancel = () => console.log("Modal Action Cancel"),
 	variant = "filled",
 	size = "xs",
 	color = "teal",
+	type = "button",
 	children,
 }) {
 	const openModal = () =>
@@ -18,11 +19,17 @@ export default function Modal({
 			title: title,
 			children: <Text size="xs">{body}</Text>,
 			labels: { confirm: labelConfirm, cancel: labelCancel },
-			onCancel: () => onCancel(),
-			onConfirm: () => onConfirm(),
+			onCancel: toCancel,
+			onConfirm: toConfirm,
 		});
 	return (
-		<Button variant={variant} size={size} onClick={openModal} color={color}>
+		<Button
+			type={type}
+			variant={variant}
+			size={size}
+			onClick={openModal}
+			color={color}
+		>
 			{children}
 		</Button>
 	);

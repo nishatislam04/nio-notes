@@ -1,9 +1,10 @@
-// middleware.js
+import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 
-export function middleware(request) {
-	const session = true; // Example: Get session from cookies
-	// const session = false; // Example: Get session from cookies
+export async function middleware(request) {
+	const session = await auth();
+
+	// console.log("session from middleware", session);
 
 	if (!session) {
 		return NextResponse.redirect(new URL("/notes", request.url));
@@ -11,7 +12,6 @@ export function middleware(request) {
 
 	return NextResponse.redirect(new URL("/home", request.url));
 }
-
 export const config = {
 	matcher: ["/"],
 };

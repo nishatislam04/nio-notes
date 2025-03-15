@@ -13,8 +13,9 @@ import { useDisclosure } from "@mantine/hooks";
 import Link from "next/link";
 import Logo from "../miscs/Logo";
 import { IconMoon } from "@tabler/icons-react";
+import { useSession } from "next-auth/react";
+import { SignOut } from "../ui/Signout";
 
-const headerNavItems = [{ label: "Sign In", href: "/signin" }];
 const navItems = [
 	{ label: "Profile", href: "/home/profile" },
 	{ label: "Settings", href: "/home/settings" },
@@ -23,6 +24,7 @@ const navItems = [
 export default function AuthLayout({ children }) {
 	const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
 	const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
+	const { data: session } = useSession();
 
 	const moonIcon = <IconMoon size={15} />;
 	return (
@@ -57,14 +59,15 @@ export default function AuthLayout({ children }) {
 						<Button size="xs" variant="light" px={8}>
 							{moonIcon}
 						</Button>
-
-						{headerNavItems.map((item) => (
-							<Anchor key={item.href} href={item.href} component={Link}>
+						{session ? (
+							<SignOut />
+						) : (
+							<Anchor href="/signin" component={Link}>
 								<Button size="xs" variant="light">
-									{item.label}
+									Sign In
 								</Button>
 							</Anchor>
-						))}
+						)}
 					</Group>
 				</Group>
 			</AppShell.Header>
