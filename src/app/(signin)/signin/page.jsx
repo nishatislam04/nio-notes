@@ -1,8 +1,8 @@
-import {
-	signInGithubAction,
-	signInGoogleAction,
-	signInLinkedInleAction,
-} from "@/system/action/auth/signin";
+"use client"; // Make sure to mark this as client-side
+
+import { signInGithubAction } from "@/system/action/auth/github";
+import { signInGoogleAction } from "@/system/action/auth/google";
+import { signInLinkedInleAction } from "@/system/action/auth/linkedin";
 import { Button, Card, Stack, Text, Group, Divider } from "@mantine/core";
 import {
 	IconBrandGithub,
@@ -10,7 +10,23 @@ import {
 	IconBrandLinkedin,
 } from "@tabler/icons-react";
 
-export default async function SigninPage() {
+export default function SigninPage() {
+	// Create submit handlers to call server actions
+	const handleGoogleSignIn = async (e) => {
+		e.preventDefault(); // Prevent form default behavior (page reload)
+		await signInGoogleAction(); // Trigger Google sign-in action
+	};
+
+	const handleGithubSignIn = async (e) => {
+		e.preventDefault(); // Prevent form default behavior (page reload)
+		await signInGithubAction(); // Trigger GitHub sign-in action
+	};
+
+	const handleLinkedinSignIn = async (e) => {
+		e.preventDefault(); // Prevent form default behavior (page reload)
+		await signInLinkedInleAction(); // Trigger LinkedIn sign-in action
+	};
+
 	return (
 		<Group justify="center" align="center" style={{ height: "100vh" }}>
 			<Card shadow="xl" padding="xl" radius="md" style={{ width: 400 }}>
@@ -22,7 +38,8 @@ export default async function SigninPage() {
 				</Text>
 
 				<Stack>
-					<form action={signInGoogleAction}>
+					{/* Google Sign-In Form */}
+					<form onSubmit={handleGoogleSignIn}>
 						<Button
 							type="submit"
 							size="lg"
@@ -34,7 +51,8 @@ export default async function SigninPage() {
 						</Button>
 					</form>
 
-					<form action={signInGithubAction}>
+					{/* GitHub Sign-In Form */}
+					<form onSubmit={handleGithubSignIn}>
 						<Button
 							type="submit"
 							size="lg"
@@ -46,7 +64,8 @@ export default async function SigninPage() {
 						</Button>
 					</form>
 
-					<form action={signInLinkedInleAction}>
+					{/* LinkedIn Sign-In Form */}
+					<form onSubmit={handleLinkedinSignIn}>
 						<Button
 							type="submit"
 							size="lg"
