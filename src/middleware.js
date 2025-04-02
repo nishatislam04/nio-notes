@@ -3,8 +3,6 @@ import { NextResponse } from "next/server";
 export async function middleware(request) {
 	const session = request.cookies.get("authjs.session-token")?.value;
 
-	// console.log("session from middleware", session);
-
 	if (!session) {
 		return NextResponse.redirect(new URL("/notes", request.url));
 	}

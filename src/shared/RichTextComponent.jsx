@@ -43,7 +43,7 @@ export function RichTextComponent({ editable, content, onUpdate }) {
 	if (!editor) return <p>Loading editor...</p>;
 
 	return (
-		<RichTextEditor editor={editor} className="rte-container">
+		<RichTextEditor editor={editor} className="rte-container" variant="subtle">
 			{editor && (
 				<BubbleMenu editor={editor}>
 					<RichTextEditor.ControlsGroup>
@@ -57,54 +57,36 @@ export function RichTextComponent({ editable, content, onUpdate }) {
 			)}
 			{editable && (
 				<RichTextEditor.Toolbar>
-					<RichTextEditor.ControlsGroup>
-						<RichTextEditor.Bold />
-						<RichTextEditor.Italic />
-						<RichTextEditor.Underline />
-						<RichTextEditor.Strikethrough />
-						<RichTextEditor.ClearFormatting />
-						<RichTextEditor.Highlight />
-					</RichTextEditor.ControlsGroup>
-
-					<RichTextEditor.ControlsGroup>
-						<RichTextEditor.H1 />
-						<RichTextEditor.H2 />
-						<RichTextEditor.H3 />
-					</RichTextEditor.ControlsGroup>
-
-					<RichTextEditor.ControlsGroup>
-						<RichTextEditor.BulletList />
-						<RichTextEditor.OrderedList />
-						<RichTextEditor.Blockquote />
-						<RichTextEditor.Hr />
-					</RichTextEditor.ControlsGroup>
-
-					<RichTextEditor.ControlsGroup>
-						<RichTextEditor.CodeBlock />
-						<RichTextEditor.Code icon={inlineCodeIcon} />{" "}
-					</RichTextEditor.ControlsGroup>
-
-					<RichTextEditor.ControlsGroup>
-						<RichTextEditor.ColorPicker colors={colors} />
-						<RichTextEditor.UnsetColor />
-					</RichTextEditor.ControlsGroup>
-
-					<RichTextEditor.ControlsGroup>
-						<RichTextEditor.Link />
-						<RichTextEditor.Unlink />
-					</RichTextEditor.ControlsGroup>
-
-					<RichTextEditor.ControlsGroup>
-						<RichTextEditor.AlignLeft />
-						<RichTextEditor.AlignCenter />
-						<RichTextEditor.AlignRight />
-						<RichTextEditor.AlignJustify />
-					</RichTextEditor.ControlsGroup>
-
-					<RichTextEditor.ControlsGroup>
-						<RichTextEditor.Undo />
-						<RichTextEditor.Redo />
-					</RichTextEditor.ControlsGroup>
+					{/*  format */}
+					<RichTextEditor.Bold />
+					<RichTextEditor.Italic />
+					<RichTextEditor.Underline />
+					<RichTextEditor.Strikethrough />
+					{/*  Highlight */}
+					<RichTextEditor.Highlight />
+					<RichTextEditor.ClearFormatting />
+					{/*  typhography */}
+					<RichTextEditor.H1 />
+					<RichTextEditor.H2 />
+					<RichTextEditor.H3 />
+					<RichTextEditor.BulletList />
+					<RichTextEditor.OrderedList />
+					<RichTextEditor.Hr />
+					<RichTextEditor.CodeBlock />
+					{/* color */}
+					<RichTextEditor.Code icon={inlineCodeIcon} />
+					<RichTextEditor.ColorPicker colors={colors} />
+					{/* link */}
+					<RichTextEditor.Link />
+					<RichTextEditor.Unlink />
+					{/* alignment */}
+					<RichTextEditor.AlignLeft />
+					<RichTextEditor.AlignCenter />
+					<RichTextEditor.AlignRight />
+					<RichTextEditor.AlignJustify />
+					{/* actions */}
+					<RichTextEditor.Undo />
+					<RichTextEditor.Redo />
 				</RichTextEditor.Toolbar>
 			)}
 
