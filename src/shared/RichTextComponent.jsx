@@ -71,6 +71,7 @@ export function RichTextComponent({ editable, content, onUpdate }) {
 		extensions: baseExtensions,
 		content,
 		editable,
+		immediatelyRender: false,
 		onUpdate: ({ editor }) => {
 			if (onUpdate) onUpdate(editor.getHTML());
 		},
