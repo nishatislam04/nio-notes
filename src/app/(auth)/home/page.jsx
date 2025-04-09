@@ -1,9 +1,7 @@
 import Session from "@/lib/Session";
 
 export default async function AuthHomePage() {
-	const { user: session } = await Session.getAuthenticatedUser();
+	const { user: session } = (await Session.getAuthenticatedUser()) || null;
 
-	console.log(session, "session from home");
-
-	return <div className="">test</div>;
+	return <div className="">{session?.username} homepage</div>;
 }

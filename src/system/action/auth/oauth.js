@@ -3,13 +3,13 @@
 import { signIn } from "@/auth";
 
 export async function signInGithubAction() {
-	await signIn("github", { redirectTo: "/home" });
+	await signIn("github", { redirectTo: "/signup-notesave" });
 }
 
 export async function signInGoogleAction() {
-	await signIn("google", { redirectTo: "/home" });
+	await signIn("google", { redirectTo: "/signup-notesave" });
 }
 
 export async function signInLinkedInleAction() {
-	await signIn("linkedin", { redirectTo: "/home" });
+	await signIn("linkedin", { redirectTo: "/signup-notesave" });
 }

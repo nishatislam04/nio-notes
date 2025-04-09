@@ -9,13 +9,13 @@ import { lazy, Suspense } from "react";
 const RichNoteEditor = lazy(() => import("@/components/notes/RichNoteEditor"));
 const NotePreview = lazy(() => import("@/components/notes/NotePreview"));
 
-export default function NoteComponent({ show = true }) {
+export default function NoteComponent({ showSaveButton = true }) {
 	const router = useRouter();
 	const EditIcon = <IconPencilBolt size={16} />;
 	const ViewIcon = <IconEyeCheck size={16} />;
 	return (
 		<div className="min-h-[calc(100dvh-100px)] bg-gray-100 dark:bg-gray-900 p-4">
-			{show && (
+			{showSaveButton && (
 				<section className="flex justify-end mb-4">
 					<Modal
 						body="If you want to save the note, you have to sign in first"

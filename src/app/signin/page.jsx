@@ -5,18 +5,13 @@ import {
 	IconBrandLinkedin,
 } from "@tabler/icons-react";
 
-import { auth } from "@/auth";
-import { redirect } from "next/navigation";
 import {
 	signInGithubAction,
 	signInGoogleAction,
 	signInLinkedInleAction,
 } from "@/system/action/auth/oauth";
 
-export default async function SigninPage() {
-	const session = await auth();
-	if (session) redirect("/home");
-
+export default function SigninPage() {
 	return (
 		<Group justify="center" align="center" className="h-screen">
 			<Card shadow="xl" padding="xl" radius="md" style={{ width: 400 }}>
