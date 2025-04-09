@@ -1,10 +1,9 @@
-import { auth } from "@/auth";
-import { redirect } from "next/navigation";
+import Session from "@/lib/Session";
 
 export default async function AuthHomePage() {
-	const session = await auth();
-	console.log("session from home", session);
-	if (!session) redirect("/signin");
+	const { user: session } = await Session.getAuthenticatedUser();
+
+	console.log(session, "session from home");
 
 	return <div className="">test</div>;
 }

@@ -16,7 +16,9 @@ import { IconMoon } from "@tabler/icons-react";
 import { useSession } from "next-auth/react";
 import { SignOut } from "../ui/Signout";
 
-const navItems = [
+const topNavs = [{ label: "Notes", href: "/home/notes" }];
+
+const bottomNavs = [
 	{ label: "Profile", href: "/home/profile" },
 	{ label: "Settings", href: "/home/settings" },
 ];
@@ -24,7 +26,8 @@ const navItems = [
 export default function AuthLayout({ children }) {
 	const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
 	const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
-	const { data: session } = useSession();
+	const sessionData = useSession();
+	const session = sessionData?.data?.user;
 
 	const moonIcon = <IconMoon size={15} />;
 	return (
@@ -72,8 +75,24 @@ export default function AuthLayout({ children }) {
 				</Group>
 			</AppShell.Header>
 			<AppShell.Navbar p="md">
+				<Stack gap="sm" component="nav" className="">
+					{topNavs.map((item) => (
+						<Anchor
+							key={item.href}
+							href={item.href}
+							component={Link}
+							className="w-full"
+						>
+							<Button size="xs" variant="light" fullWidth>
+								{item.label}
+							</Button>
+						</Anchor>
+					))}
+				</Stack>
+
+				{/* bottom nav part */}
 				<Stack gap="sm" component="nav" className="mt-auto mb-4">
-					{navItems.map((item) => (
+					{bottomNavs.map((item) => (
 						<Anchor
 							key={item.href}
 							href={item.href}
@@ -88,13 +107,13 @@ export default function AuthLayout({ children }) {
 					<AppShell.Section className="mt-4">
 						<Stack align="left" gap="md">
 							<Group position="center" gap="xs">
-								<Avatar src={null} radius="xl" size={35} />
+								<Avatar src={session?.image || null} radius="xl" size={35} />
 								<div>
 									<Text size="sm" weight={500}>
-										username
+										{session?.username}
 									</Text>
 									<Text size="xs" c="dimmed">
-										user@email
+										{session?.email}
 									</Text>
 								</div>
 							</Group>
