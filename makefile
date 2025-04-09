@@ -1,24 +1,23 @@
-# Variables 
+# Variables
 DOCKER_COMPOSE = docker compose -f docker-compose.yml
 REDIS_CONTAINER = redis
-DB_CONTAINER = mysql
-DB_USER ?= root
+DB_CONTAINER = postgres-nio-notes
+DB_USER ?= nishat
 DB_PASS ?= 1234
-DEV_USER = nishat
-DEV_PRIVILEGES_CMD = "CREATE USER IF NOT EXISTS '$(DEV_USER)'@'%' IDENTIFIED BY '$(DB_PASS)'; GRANT ALL PRIVILEGES ON *.* TO '$(DEV_USER)'@'%'; FLUSH PRIVILEGES;"
+DB_NAME ?= nio-notes
 TIMESTAMP = $(shell date +%Y.%m.%d.%H.%M.%S)
 
-SCHEMA = prisma/schema.mysql.prisma
+SCHEMA = prisma/schema.prisma
 
 # Targets
-.PHONY: grant-all migrate push reset production grant-permissions super
+.PHONY: grant-all migrate push reset production super
 
 # [[general]] run docker compose & nextjs local server
 start:
 	@echo "Starting Docker services..."
 	$(DOCKER_COMPOSE) up -d
 	@echo "Waiting for database to be ready..."
-	sleep 2
+	sleep 3
 	@echo "Starting Next.js development server..."
 	bun --bun run dev
 
@@ -26,34 +25,29 @@ start:
 super:
 	sudo chmod -R 777 . && sudo chmod -R 777 ./prisma
 
-# [[MySQL]] Grant full access to the development user
-grant-all:
-	$(DOCKER_COMPOSE) run --rm -e MYSQL_PWD=$(DB_PASS) $(DB_CONTAINER) \
-	mysql -h mysql -u $(DB_USER) -e $(DEV_PRIVILEGES_CMD)
-
 # [[Prisma]] Migrate with timestamp
 migrate:
-	$(DOCKER_COMPOSE) run --rm $(DB_CONTAINER) bunx prisma migrate dev --name $(TIMESTAMP) --skip-seed --skip-generate --schema=$(SCHEMA)
+	$(DOCKER_COMPOSE) run --rm $(DB_CONTAINER) bunx prisma migrate dev --name $(TIMESTAMP) --skip-seed --skip-generate
 
 # [[Prisma]] Push schema to database
 push:
-	$(DOCKER_COMPOSE) run --rm $(DB_CONTAINER) bunx prisma db push --accept-data-loss --skip-generate --schema=$(SCHEMA)
+	$(DOCKER_COMPOSE) run --rm $(DB_CONTAINER) bunx prisma db push --accept-data-loss --skip-generate 
 
 # [[Prisma]] Local Generate Prisma client
 local_generate:
-	bunx prisma generate --schema=$(SCHEMA)
+	bunx prisma generate 
 
-# [[Prisma]] Generate Prisma client
+# [[Prisma]] Generate Prisma client inside container
 generate:
-	$(DOCKER_COMPOSE) run --rm $(DB_CONTAINER) bunx prisma generate --schema=$(SCHEMA)
+	$(DOCKER_COMPOSE) run --rm $(DB_CONTAINER) bunx prisma generate 
 
 # [[Prisma]] Reset database
 reset:
-	$(DOCKER_COMPOSE) run --rm $(DB_CONTAINER) bunx prisma migrate reset --force --skip-seed --skip-generate --schema=$(SCHEMA)
+	$(DOCKER_COMPOSE) run --rm $(DB_CONTAINER) bunx prisma migrate reset --force --skip-seed --skip-generate 
 
 # [[Prisma]] Run Prisma seed
 seed:
-	$(DOCKER_COMPOSE) run --rm $(DB_CONTAINER) bunx prisma db seed --schema=$(SCHEMA)
+	$(DOCKER_COMPOSE) run --rm $(DB_CONTAINER) bunx prisma db seed 
 
 # [[Prisma]] Migrate for production
 production:
@@ -109,7 +103,7 @@ logs:
 
 # [[Docker]] Restart services
 restart:
-	$(DOCKER_COMPOSE) restart
+	$(DOCKER_COMPOSE) restart $(DB_CONTAINER)
 
 # [[Docker]] Execute a shell in the container
 exec:
