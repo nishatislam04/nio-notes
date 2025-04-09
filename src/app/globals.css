@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 :root {
 	--nav-height: 60px;
@@ -22,3 +22,19 @@
 	@apply bg-gray-200/50 dark:bg-gray-900 text-gray-800 dark:text-gray-100;
 	@apply p-4 rounded-lg overflow-x-auto;
 }
+
+/* click anywhere on rte to start typing START */
+.rte-container .ProseMirror {
+	min-height: 350px; /* match your ScrollArea height */
+	padding: 1rem;
+	cursor: text; /* show "text input" cursor */
+	display: flex;
+	flex-direction: column;
+}
+
+.rte-container .ProseMirror:empty::before {
+	content: attr(data-placeholder);
+	color: #999;
+	pointer-events: none;
+}
+/* END */
