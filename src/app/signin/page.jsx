@@ -1,5 +1,3 @@
-"use client";
-
 import { Button, Card, Stack, Text, Group, Divider } from "@mantine/core";
 import {
 	IconBrandGithub,
@@ -7,12 +5,18 @@ import {
 	IconBrandLinkedin,
 } from "@tabler/icons-react";
 
-// import server actions (they must be async functions using "use server")
-import { signInGithubAction } from "@/system/action/auth/github";
-import { signInGoogleAction } from "@/system/action/auth/google";
-import { signInLinkedInleAction } from "@/system/action/auth/linkedin";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+import {
+	signInGithubAction,
+	signInGoogleAction,
+	signInLinkedInleAction,
+} from "@/system/action/auth/oauth";
 
-export default function SigninPage() {
+export default async function SigninPage() {
+	const session = await auth();
+	if (session) redirect("/home");
+
 	return (
 		<Group justify="center" align="center" className="h-screen">
 			<Card shadow="xl" padding="xl" radius="md" style={{ width: 400 }}>
