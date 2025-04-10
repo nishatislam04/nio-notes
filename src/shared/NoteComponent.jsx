@@ -10,9 +10,10 @@ import { lazy, Suspense } from "react";
 const RichNoteEditor = lazy(() => import("@/components/notes/RichNoteEditor"));
 const NotePreview = lazy(() => import("@/components/notes/NotePreview"));
 
-export default function NoteComponent({ showSaveButton = true }) {
+export default function NoteComponent({ showSaveButton = true, user = null }) {
 	const router = useRouter();
-	const { content, hydrated, hasNote, debouncedSave } = useHydratedNoteStore();
+	const { content, hydrated, hasNote, debouncedSave } =
+		useHydratedNoteStore(user);
 	const EditIcon = <IconPencilBolt size={16} />;
 	const ViewIcon = <IconEyeCheck size={16} />;
 
