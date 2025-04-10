@@ -17,21 +17,21 @@ export default function NoteComponent({ showSaveButton = true }) {
 	const ViewIcon = <IconEyeCheck size={16} />;
 	return (
 		<div className="min-h-[calc(100dvh-100px)] bg-gray-100 dark:bg-gray-900 p-4">
-			<section
-				className={`
-		flex justify-end mb-4
-		transition-opacity duration-300
-		${!showSaveButton || !hasNote ? "opacity-0 pointer-events-none" : "opacity-100"}
-	`}
-			>
-				<Modal
-					body="If you want to save the note, you have to sign in first"
-					labelConfirm="Ok, I want to sign in"
-					toConfirm={() => router.push("/signin")}
-				>
-					Save
-				</Modal>
-			</section>
+			{showSaveButton && (
+				<section className="flex justify-end mb-4 min-h-[40px]">
+					{hasNote ? (
+						<Modal
+							body="If you want to save the note, you have to sign in first"
+							labelConfirm="Ok, I want to sign in"
+							toConfirm={() => router.push("/signin")}
+						>
+							Save
+						</Modal>
+					) : (
+						<div className="w-[72px] h-[40px] rounded bg-gray-300/10 dark:bg-gray-700/10 animate-pulse" />
+					)}
+				</section>
+			)}
 
 			<Tabs
 				color="yellow"
