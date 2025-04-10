@@ -12,9 +12,10 @@ const NotePreview = lazy(() => import("@/components/notes/NotePreview"));
 
 export default function NoteComponent({ showSaveButton = true }) {
 	const router = useRouter();
-	const { content, setContent, hydrated, hasNote } = useHydratedNoteStore();
+	const { content, hydrated, hasNote, debouncedSave } = useHydratedNoteStore();
 	const EditIcon = <IconPencilBolt size={16} />;
 	const ViewIcon = <IconEyeCheck size={16} />;
+
 	return (
 		<div className="min-h-[calc(100dvh-100px)] bg-gray-100 dark:bg-gray-900 p-4">
 			{showSaveButton && (
@@ -74,9 +75,9 @@ export default function NoteComponent({ showSaveButton = true }) {
 						}
 					>
 						<RichNoteEditor
-							setContent={setContent}
 							hydrated={hydrated}
 							content={content}
+							debouncedSave={debouncedSave}
 						/>
 					</Suspense>
 				</Tabs.Panel>

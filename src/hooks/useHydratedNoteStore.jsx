@@ -2,6 +2,7 @@
 
 import Settings from "@/lib/Settings";
 import { useNoteStore } from "@/store/useNoteStore";
+import { useDebouncedCallback } from "@mantine/hooks";
 import { useEffect, useMemo, useState } from "react";
 
 export function useHydratedNoteStore() {
@@ -18,6 +19,11 @@ export function useHydratedNoteStore() {
 		}
 	}, [setContent]);
 
+	// save note to state
+	const debouncedSave = useDebouncedCallback((newContent) => {
+		setContent(newContent);
+	}, 1000);
+
 	// 🔍 Check if content has actual note text
 	const hasNote = useMemo(() => {
 		if (!content) return false;
@@ -31,5 +37,5 @@ export function useHydratedNoteStore() {
 		return stripped.length > 0;
 	}, [content]);
 
-	return { content, setContent, hydrated, hasNote };
+	return { content, setContent, hydrated, hasNote, debouncedSave };
 }

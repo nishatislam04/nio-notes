@@ -1,11 +1,6 @@
 import { RichTextComponent } from "@/shared/RichTextComponent";
-import { useDebouncedCallback } from "@mantine/hooks";
 
-export default function RichNoteEditor({ content, hydrated, setContent }) {
-	const debouncedSave = useDebouncedCallback((newContent) => {
-		setContent(newContent);
-	}, 1000);
-
+export default function RichNoteEditor({ content, hydrated, debouncedSave }) {
 	if (!hydrated)
 		return (
 			<div className="space-y-4">
