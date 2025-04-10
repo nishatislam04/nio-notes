@@ -60,24 +60,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 			return session;
 		},
 
-		async signIn({ user }) {
-			const existingUser = await prisma.user.findUnique({
-				where: { email: user.email },
-			});
+		// async signIn({ user }) {
+		// 	const existingUser = await prisma.user.findUnique({
+		// 		where: { email: user.email },
+		// 	});
 
-			if (!existingUser) {
-				await prisma.user.create({
-					data: {
-						name: user.name,
-						username: user.username,
-						email: user.email,
-						image: user.image,
-					},
-				});
-			}
+		// 	if (!existingUser) {
+		// 		await prisma.user.create({
+		// 			data: {
+		// 				name: user.name,
+		// 				username: user.username,
+		// 				email: user.email,
+		// 				image: user.image,
+		// 			},
+		// 		});
+		// 	}
 
-			return true;
-		},
+		// 	return true;
+		// },
 	},
 
 	session: {
