@@ -1,6 +1,7 @@
 "use client";
 
 import Modal from "@/components/ui/Modal";
+import { useHydratedNoteStore } from "@/hooks/useHydratedNoteStore";
 import { Tabs } from "@mantine/core";
 import { IconEyeCheck, IconPencilBolt } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
@@ -11,21 +12,26 @@ const NotePreview = lazy(() => import("@/components/notes/NotePreview"));
 
 export default function NoteComponent({ showSaveButton = true }) {
 	const router = useRouter();
+	const { content, setContent, hydrated, hasNote } = useHydratedNoteStore();
 	const EditIcon = <IconPencilBolt size={16} />;
 	const ViewIcon = <IconEyeCheck size={16} />;
 	return (
 		<div className="min-h-[calc(100dvh-100px)] bg-gray-100 dark:bg-gray-900 p-4">
-			{showSaveButton && (
-				<section className="flex justify-end mb-4">
-					<Modal
-						body="If you want to save the note, you have to sign in first"
-						labelConfirm="Ok, I want to sign in"
-						toConfirm={() => router.push("/signin")}
-					>
-						Save
-					</Modal>
-				</section>
-			)}
+			<section
+				className={`
+		flex justify-end mb-4
+		transition-opacity duration-300
+		${!showSaveButton || !hasNote ? "opacity-0 pointer-events-none" : "opacity-100"}
+	`}
+			>
+				<Modal
+					body="If you want to save the note, you have to sign in first"
+					labelConfirm="Ok, I want to sign in"
+					toConfirm={() => router.push("/signin")}
+				>
+					Save
+				</Modal>
+			</section>
 
 			<Tabs
 				color="yellow"
@@ -67,7 +73,11 @@ export default function NoteComponent({ showSaveButton = true }) {
 							<div className="animate-pulse h-64 bg-gray-200 dark:bg-gray-700 rounded-md" />
 						}
 					>
-						<RichNoteEditor />
+						<RichNoteEditor
+							setContent={setContent}
+							hydrated={hydrated}
+							content={content}
+						/>
 					</Suspense>
 				</Tabs.Panel>
 
@@ -80,7 +90,7 @@ export default function NoteComponent({ showSaveButton = true }) {
 							<div className="animate-pulse h-64 bg-gray-200 dark:bg-gray-700 rounded-md" />
 						}
 					>
-						<NotePreview />
+						<NotePreview content={content} hydrated={hydrated} />
 					</Suspense>
 				</Tabs.Panel>
 			</Tabs>

@@ -1,10 +1,7 @@
-import { useHydratedNoteStore } from "@/hooks/useHydratedNoteStore";
 import { RichTextComponent } from "@/shared/RichTextComponent";
 import { useDebouncedCallback } from "@mantine/hooks";
 
-export default function RichNoteEditor() {
-	const { content, setContent, hydrated } = useHydratedNoteStore();
-
+export default function RichNoteEditor({ content, hydrated, setContent }) {
 	const debouncedSave = useDebouncedCallback((newContent) => {
 		setContent(newContent);
 	}, 1000);

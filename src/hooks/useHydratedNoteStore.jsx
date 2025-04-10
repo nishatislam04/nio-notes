@@ -2,7 +2,7 @@
 
 import Settings from "@/lib/Settings";
 import { useNoteStore } from "@/store/useNoteStore";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export function useHydratedNoteStore() {
 	const { content, setContent } = useNoteStore();
@@ -18,5 +18,18 @@ export function useHydratedNoteStore() {
 		}
 	}, [setContent]);
 
-	return { content, setContent, hydrated };
+	// 🔍 Check if content has actual note text
+	const hasNote = useMemo(() => {
+		if (!content) return false;
+
+		// Strip HTML tags, decode & trim
+		const stripped = content
+			.replace(/<[^>]+>/g, "")
+			.replace(/&nbsp;/g, "")
+			.trim();
+
+		return stripped.length > 0;
+	}, [content]);
+
+	return { content, setContent, hydrated, hasNote };
 }

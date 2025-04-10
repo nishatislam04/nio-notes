@@ -1,9 +1,6 @@
 import { RichTextComponent } from "@/shared/RichTextComponent";
-import { useHydratedNoteStore } from "@/hooks/useHydratedNoteStore";
 
-export default function NotePreview() {
-	const { content, hydrated } = useHydratedNoteStore();
-
+export default function NotePreview({ content, hydrated }) {
 	if (!hydrated)
 		return (
 			<div className="animate-pulse min-h-[350px] bg-gray-200 dark:bg-gray-700 rounded-md" />
