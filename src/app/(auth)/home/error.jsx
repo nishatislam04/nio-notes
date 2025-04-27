@@ -30,7 +30,7 @@ export default function Error({ error, reset }) {
 				>
 					{CodeHighlight ? (
 						<CodeHighlight
-							className="h-[30vh] max-h-[30vh] w-[70vw] max-w-[85vw] px-12 py-12"
+							className="h-[30vh] max-h-[30vh] px-12 py-12 flex justify-end"
 							code={`${message}`}
 							language="jsx"
 							copyLabel="Copy button code"
